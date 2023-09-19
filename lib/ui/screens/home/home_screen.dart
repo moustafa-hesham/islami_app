@@ -2,10 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:islami_app/ui/Utilities/app_assets.dart';
 import 'package:islami_app/ui/Utilities/app_colors.dart';
 import 'package:islami_app/ui/Utilities/app_theme.dart';
+import 'package:islami_app/ui/screens/home/tabs/ahadeth_tab/ahadeth_tab.dart';
+import 'package:islami_app/ui/screens/home/tabs/quran_tab/quran_tab.dart';
+import 'package:islami_app/ui/screens/home/tabs/radio_tab.dart/radio_tab.dart';
+import 'package:islami_app/ui/screens/home/tabs/sebha_tab/sebha_tab.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
   static const String iD = 'home screen';
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int currentTabIndex = 0;
+  List<Widget> tabs = [
+    QuranTab(),
+    AhatethTab(),
+    SebhaTab(),
+    RadioTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +44,7 @@ class HomeScreen extends StatelessWidget {
             style: AppTheme.appBarTitleTextStyle,
           ),
         ),
+        body: tabs[currentTabIndex],
         backgroundColor: AppColor.transparent,
         bottomNavigationBar: buildBottomNavigationBar(),
       ),
@@ -40,6 +58,11 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: AppColor.primary,
           selectedItemColor: AppColor.accent,
           iconSize: 30,
+          currentIndex: currentTabIndex,
+          onTap: (value) {
+            currentTabIndex = value;
+            setState(() {});
+          },
           items: const [
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage(AppAssets.icQuran)), label: 'Quran'),
