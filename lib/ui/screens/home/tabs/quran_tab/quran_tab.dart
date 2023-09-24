@@ -5,6 +5,7 @@ import 'package:islami_app/ui/Utilities/app_colors.dart';
 import 'package:islami_app/ui/Utilities/app_theme.dart';
 import 'package:islami_app/ui/Utilities/constats.dart';
 import 'package:islami_app/ui/screens/home/details_screen/details_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QuranTab extends StatelessWidget {
   @override
@@ -13,19 +14,13 @@ class QuranTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(flex: 3, child: Image.asset(AppAssets.quranTabLogo)),
-        const Divider(
-          color: AppColor.primary,
-          thickness: 1,
-        ),
-        const Text(
-          'Soura Name',
-          style: AppTheme.quranTabTitleTextStyle,
+        const Divider(),
+        Text(
+          AppLocalizations.of(context)!.suraname,
+          style: Theme.of(context).textTheme.displayMedium,
           textAlign: TextAlign.center,
         ),
-        const Divider(
-          color: AppColor.primary,
-          thickness: 1,
-        ),
+        const Divider(),
         Expanded(
           flex: 7,
           child: ListView.builder(
@@ -43,9 +38,7 @@ class QuranTab extends StatelessWidget {
                 child: Text(
                   Constants.suraNames[index],
                   textAlign: TextAlign.center,
-                  style: AppTheme.quranTabTitleTextStyle.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               );
             },

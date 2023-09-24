@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/provider/settings_provider.dart';
 import 'package:islami_app/ui/Utilities/app_assets.dart';
 import 'package:islami_app/ui/Utilities/app_colors.dart';
 import 'package:islami_app/ui/Utilities/app_theme.dart';
@@ -6,6 +7,9 @@ import 'package:islami_app/ui/screens/home/tabs/ahadeth_tab/ahadeth_tab.dart';
 import 'package:islami_app/ui/screens/home/tabs/quran_tab/quran_tab.dart';
 import 'package:islami_app/ui/screens/home/tabs/radio_tab.dart/radio_tab.dart';
 import 'package:islami_app/ui/screens/home/tabs/sebha_tab/sebha_tab.dart';
+import 'package:islami_app/ui/screens/home/tabs/settings_tab/settings_tab.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -20,28 +24,28 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabs = [
     QuranTab(),
     AhatethTab(),
-    SebhaTab(),
-    RadioTab(),
+    const SebhaTab(),
+    const RadioTab(),
+    SettingsTab()
   ];
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider provider = Provider.of(context);
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           image: DecorationImage(
         image: AssetImage(
-          AppAssets.background,
+          provider.isDarkMode()
+              ? AppAssets.background
+              : AppAssets.backgroundDark,
         ),
         fit: BoxFit.fill,
       )),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColor.transparent,
-          elevation: 0,
-          centerTitle: true,
-          title: const Text(
-            'Islami',
-            style: AppTheme.appBarTitleTextStyle,
+          title: Text(
+            AppLocalizations.of(context)!.islami,
           ),
         ),
         body: tabs[currentTabIndex],
@@ -52,27 +56,28 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildBottomNavigationBar() => Theme(
-        data: ThemeData(canvasColor: AppColor.primary),
-        // To make the default color of it, as there is a bug in flutter
+        data: Theme.of(context)
+            .copyWith(canvasColor: Theme.of(context).primaryColor),
         child: BottomNavigationBar(
-          backgroundColor: AppColor.primary,
-          selectedItemColor: AppColor.accent,
           iconSize: 30,
           currentIndex: currentTabIndex,
           onTap: (value) {
             currentTabIndex = value;
             setState(() {});
           },
-          items: const [
-            BottomNavigationBarItem(
+          items: [
+            const BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage(AppAssets.icQuran)), label: 'Quran'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage(AppAssets.icAhadeth)),
                 label: 'Ahadeth'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage(AppAssets.icSebha)), label: 'Sebha'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage(AppAssets.icRadio)), label: 'Radio'),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.settings),
+                label: AppLocalizations.of(context)!.settings),
           ],
         ),
       );

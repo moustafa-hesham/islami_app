@@ -20,9 +20,9 @@ class AhatethTab extends StatelessWidget {
           color: AppColor.primary,
           thickness: 1,
         ),
-        const Text(
+        Text(
           'Ahadeth Names',
-          style: AppTheme.quranTabTitleTextStyle,
+          style: Theme.of(context).textTheme.bodyMedium,
           textAlign: TextAlign.center,
         ),
         const Divider(
@@ -43,13 +43,9 @@ class AhatethTab extends StatelessWidget {
                         suraOrHadethName: Constants.suraNames[index],
                       ));
                 },
-                child: Text(
-                  ahadethNames[index],
-                  textAlign: TextAlign.center,
-                  style: AppTheme.quranTabTitleTextStyle.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                child: Text(ahadethNames[index],
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodySmall),
               );
             },
           ),
