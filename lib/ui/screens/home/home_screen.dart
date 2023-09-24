@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:islami_app/provider/settings_provider.dart';
 import 'package:islami_app/ui/Utilities/app_assets.dart';
 import 'package:islami_app/ui/Utilities/app_colors.dart';
-import 'package:islami_app/ui/Utilities/app_theme.dart';
+
 import 'package:islami_app/ui/screens/home/tabs/ahadeth_tab/ahadeth_tab.dart';
 import 'package:islami_app/ui/screens/home/tabs/quran_tab/quran_tab.dart';
 import 'package:islami_app/ui/screens/home/tabs/radio_tab.dart/radio_tab.dart';
@@ -37,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
           image: DecorationImage(
         image: AssetImage(
           provider.isDarkMode()
-              ? AppAssets.background
-              : AppAssets.backgroundDark,
+              ? AppAssets.backgroundDark
+              : AppAssets.background,
         ),
         fit: BoxFit.fill,
       )),

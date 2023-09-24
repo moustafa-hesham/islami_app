@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/models/details_screen_args.dart';
 import 'package:islami_app/ui/Utilities/app_assets.dart';
-import 'package:islami_app/ui/Utilities/app_colors.dart';
-import 'package:islami_app/ui/Utilities/app_theme.dart';
+
 import 'package:islami_app/ui/Utilities/constats.dart';
 import 'package:islami_app/ui/screens/home/details_screen/details_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

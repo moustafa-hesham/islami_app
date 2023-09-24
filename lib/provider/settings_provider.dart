@@ -14,5 +14,5 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isDarkMode() => currentMode != ThemeMode.dark;
+  bool isDarkMode() => currentMode == ThemeMode.dark;
 }
