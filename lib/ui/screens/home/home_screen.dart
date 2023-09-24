@@ -10,6 +10,7 @@ import 'package:islami_app/ui/screens/home/tabs/sebha_tab/sebha_tab.dart';
 import 'package:islami_app/ui/screens/home/tabs/settings_tab/settings_tab.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SettingsProvider provider = Provider.of(context);
+    getPrefs();
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -81,4 +83,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       );
+
+  getPrefs() async {
+    SettingsProvider provider = Provider.of(context);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var mode = prefs.get('Dark mode');
+    if (mode == true) {
+      provider.setCurrentMode(ThemeMode.dark);
+    } else {
+      provider.setCurrentMode(ThemeMode.light);
+    }
+    var language = prefs.get('language');
+    if (language == true) {
+      provider.setCurrentLocal('en');
+    } else {
+      provider.setCurrentLocal('ar');
+    }
+  }
 }

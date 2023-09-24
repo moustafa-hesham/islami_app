@@ -4,10 +4,11 @@ import 'package:islami_app/ui/Utilities/app_colors.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class SettingsTab extends StatefulWidget {
-  SettingsTab({super.key});
+  const SettingsTab({super.key});
 
   @override
   State<SettingsTab> createState() => _SettingsTabState();
@@ -34,6 +35,7 @@ class _SettingsTabState extends State<SettingsTab> {
             switchValue: languageSwitch,
             onChange: (newValue) {
               languageSwitch = newValue;
+              saveLangPrefs(languageSwitch);
               if (languageSwitch) {
                 provider.setCurrentLocal('ar');
               } else {
@@ -45,6 +47,7 @@ class _SettingsTabState extends State<SettingsTab> {
             switchValue: darkModeSwitch,
             onChange: (newValue) {
               darkModeSwitch = newValue;
+              saveModePrefs(darkModeSwitch);
               if (darkModeSwitch) {
                 provider.setCurrentMode(ThemeMode.dark);
               } else {
@@ -76,5 +79,16 @@ class _SettingsTabState extends State<SettingsTab> {
         )
       ],
     );
+  }
+
+  saveModePrefs(bool mode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('Dark mode', darkModeSwitch);
+  }
+
+  saveLangPrefs(bool mode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool('language', languageSwitch);
   }
 }
