@@ -17,10 +17,13 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   bool languageSwitch = false;
   bool darkModeSwitch = false;
+  late SettingsProvider provider;
 
   @override
   Widget build(BuildContext context) {
-    SettingsProvider provider = Provider.of(context);
+    provider = Provider.of(context);
+    darkModeSwitch = provider.isDarkMode();
+    languageSwitch = provider.isAr();
     return Column(
       children: [
         const SizedBox(
